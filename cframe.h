@@ -37,6 +37,7 @@ private:
 
 
     QTimer *timer;
+
     long Codigo;
     vector<long*>Binario,Original,Ordenado;
     QString Resultado, ConsultaSql, Nombre;
@@ -44,5 +45,7 @@ private:
     char Letra;
     int Numero;
     std::string Ruta ="C:\\Users\\pcast\\OneDrive - Universidad Tecnologica Centroamericana\\q\\Q2 2024\\CRIPTOGRAFIA\\ma.txt";
+
+    void extraerArchivo();
 };
 #endif // CFRAME_H
