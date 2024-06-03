@@ -18,6 +18,9 @@
 #include <QDateTime>
 #include <cstdlib>
 #include <ctime>
+#include <QFile>
+#include <QMessageBox>
+#include <QTextStream>
 using std::ofstream;
 using std::ios;
 using std::string;
@@ -30,6 +33,22 @@ cframe::cframe(QWidget *parent)
 {
 
     ui->setupUi(this);
+    QFile file(":/new/prefix1/ma.txt");
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QMessageBox::critical(this, tr("Error"), tr("No se pudo abrir el archivo ma.txt"));
+            return;
+        }
+
+        // Lee la primera línea del archivo
+        QTextStream in(&file);
+        QString firstLine = in.readLine();
+
+        // Muestra la primera línea en un QMessageBox
+        QMessageBox::information(this, tr("Primera línea"), firstLine);
+
+        // Cierra el archivo
+        file.close();
+
 
 }
 
