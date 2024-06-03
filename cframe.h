@@ -44,8 +44,32 @@ private:
     std::string texto, nombre;
     char Letra;
     int Numero;
+    QString firstLine;
     std::string Ruta ="C:\\Users\\pcast\\OneDrive - Universidad Tecnologica Centroamericana\\q\\Q2 2024\\CRIPTOGRAFIA\\ma.txt";
 
     void extraerArchivo();
+
+
+    int Modular(int N, int a, int b);
+    vector<int *> de2bi(int x);
+
+    string cifrar();
+    void descifrar();
+
+    vector<char> criptoABC;
+    vector<int> criptoCHAR;
+
+    void llenarListaChars();
+
+    void ordenarVector(vector<int>& vec);
+
+    lista<char> ListaABC;
+    lista<int> ListaNormal,ListaOrdenada;
+    nodo<char> *ActPtr;
+    nodo<int> *PtrAct;
+    int h,f,Pos;
+
+    string token,encrypted;
+  //  void script();
 };
 #endif // CFRAME_H
