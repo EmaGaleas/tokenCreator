@@ -34,20 +34,14 @@ cframe::cframe(QWidget *parent)
 
     ui->setupUi(this);
     QFile file(":/new/prefix1/ma.txt");
-        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            QMessageBox::critical(this, tr("Error"), tr("No se pudo abrir el archivo ma.txt"));
-            return;
-        }
-
-        // Lee la primera línea del archivo
-        QTextStream in(&file);
-        QString firstLine = in.readLine();
-
-        // Muestra la primera línea en un QMessageBox
-        QMessageBox::information(this, tr("Primera línea"), firstLine);
-
-        // Cierra el archivo
-        file.close();
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QMessageBox::critical(this, tr("Error"), tr("No funca archivo ma.txt"));
+        return;
+    }
+    QTextStream in(&file);
+    firstLine = in.readLine();
+    QMessageBox::information(this, tr(""), firstLine);
+    file.close();
 
 
 }
@@ -77,7 +71,6 @@ void cframe::on_pushButton_clicked()
     texto= std::to_string(Codigo);
     ui->lbl_tit_2->setText(QString::number(Codigo));
     Resultado="";
-    ofstream Archivo(nombre.data(),ios::out);
     for (int i=0;i<texto.size() ;i++ ) {
         Letra=texto[i];
         Numero=Letra;
