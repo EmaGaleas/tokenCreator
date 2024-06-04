@@ -8,7 +8,9 @@
 #include <vector>
 #include <QTimer>
 #include <fstream>
-
+#include <iostream>
+#include <fstream>
+#include <string>
 using std::vector;
 
 QT_BEGIN_NAMESPACE
@@ -45,15 +47,15 @@ private:
     char Letra;
     int Numero;
     QString firstLine;
-    std::string Ruta ="C:\\Users\\pcast\\OneDrive - Universidad Tecnologica Centroamericana\\q\\Q2 2024\\CRIPTOGRAFIA\\ma.txt";
+    std::string Ruta ="C:\\Users\\pcast\\OneDrive - Universidad Tecnologica Centroamericana\\q\\Q2 2024\\CRIPTOVERSIDAD\\criptoversidad\\TDA\\ma.txt";
 
-    void extraerArchivo();
+    void insertarArchivo(string);
 
 
     int Modular(int N, int a, int b);
     vector<int *> de2bi(int x);
 
-    string cifrar();
+    string cifrar(string);
     void descifrar();
 
     vector<char> criptoABC;
@@ -69,7 +71,7 @@ private:
     nodo<int> *PtrAct;
     int h,f,Pos;
 
-    string token,encrypted;
+    string token,encrypted,resultado;
   //  void script();
 };
 #endif // CFRAME_H

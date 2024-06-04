@@ -33,7 +33,7 @@ cframe::cframe(QWidget *parent)
 {
 
     ui->setupUi(this);
-    extraerArchivo();
+   // insertarArchivo();
     llenarListaChars();
 
 
@@ -58,30 +58,33 @@ void cframe::on_pushButton_clicked()
     ui->lbl_tit_3->setVisible(false);
     timer =new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(on_pushButton_clicked()));
-    timer->start(20000);
+    timer->start(60000);
 
     srand(time(NULL));
-//    Codigo=100000+rand()%(999999+1000000);
-//    texto= std::to_string(Codigo);
-    ui->lbl_tit_2->setText(QString::fromStdString(cifrar()));
-    Resultado="";
+    Codigo=100000+rand()%(999999+1000000);
+    //texto es el que se muestra al correr el programa
+    texto= std::to_string(Codigo);
+    ui->lbl_tit_2->setText(QString::fromStdString(texto));
 
+    resultado="";
+    //este es el cifrado de ese token y que procede a guardarse en el archivo
+    resultado=cifrar(texto);
+    insertarArchivo(resultado);
+   // QMessageBox::information(this,"lalala",""+QString::fromStdString(texto)+"\n"+QString::fromStdString(resultado));
 
 }
 
-void cframe::extraerArchivo()
+void cframe::insertarArchivo(string tok)
 {
-    QFile file(":/new/prefix1/ma.txt");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QMessageBox::critical(this, tr("Error"), tr("No funca archivo ma.txt"));
-        return;
+    std::ofstream ar(Ruta);
+    if (ar.is_open()) {
+        ar << tok;
+        ar.close();
+        std::cout << "Archivo sobrescrito exitosamente.\n";
+    } else {
+        std::cerr << "No se pudo abrir el archivo.\n";
     }
-    QTextStream in(&file);
-    firstLine = in.readLine();
-    QMessageBox::information(this, tr(""), firstLine);
 
-
-    file.close();
 }
 vector<int *> cframe::de2bi(int x)
 {
@@ -117,27 +120,9 @@ vector<long *> cframe::Ordenar(vector<long *> v)
 
 }
 
-void cframe::Inicializacion()
-{
-//    Original.push_back(new long(Modular(32,11413,3533)));
-//    Original.push_back(new long(Modular(44,11413,3533)));
-//    Original.push_back(new long(Modular(46,11413,3533)));
-//    for (int i=48;i<=57 ;i++ ) {
-//        Original.push_back(new long(Modular(i,11413,3533)));
-//    }
-//    for (int i=97;i<=122 ;i++ ) {
-//        Original.push_back(new long(Modular(i,11413,3533)));
-//    }
-//    for (int i=0;i<Original.size() ;i++ ) {
-//        Original.push_back(new long(*Original[i]));
-//    }
-//    Ordenado=Ordenar(Ordenado);
-
-}
-string cframe::cifrar()
+string cframe::cifrar(string cadena)
 {
 
-    string cadena = firstLine.toStdString();
     string cifrado = "";
 
     for (int i = 0; i < cadena.size(); i++) {
@@ -154,53 +139,14 @@ string cframe::cifrar()
         }
     }
 
-    QFile file(":/new/prefix1/ma.txt");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QMessageBox::critical(this, tr("Error"), tr("No funca archivo ma.txt"));
-        return "";
-    }
-    QTextStream in(&file);
-    firstLine = in.readLine();
-    QMessageBox::information(this, tr(""), firstLine);
-
-    file.seek(0);
-
-    QTextStream out(&file);
-    QString newLine = QString::fromStdString(cifrado);
-    out << newLine << endl;
-    file.close();
-
-
     return cifrado;
 
 }
 
-void cframe::descifrar() {
-    //string cifrado = ui->TBx_Frase->text().toStdString();
-//    string descifrado = "";
 
-//    for (int i = 0; i < cifrado.size(); i++) {
-//        int posC;
-//        for (int pos = 0; pos < criptoABC.size(); pos++) {
-//            if (criptoABC.at(pos) == cifrado.at(i)) {
-//                posC = pos;
-//                break;
-//            }
-//        }
-
-//        int mod = criptoCHAR.at(posC);
-//        int inversa = Modular(mod, 11413, 6597);
-//        cout << inversa << "\n";
-//        cout << (char) mod << "\n";
-
-//        descifrado += (char) inversa;
-
-//    }
-   // mostrar(cifrado,  descifrado);
-
-}
 void cframe::llenarListaChars() {
 
+    criptoABC.push_back(' ');
     criptoABC.push_back(' ');
     criptoABC.push_back('!');
     criptoABC.push_back('"');
