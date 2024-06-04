@@ -29,6 +29,7 @@ public:
     vector<long *> Ordenar(vector<long *>v);
     void EstablecerConexion();
     void Inicializacion();
+     void actualizarcontador();
 
 
 private slots:
@@ -38,8 +39,8 @@ private:
     Ui::cframe *ui;
 
 
-    QTimer *timer;
-
+    QTimer *timer,*timer2;
+    int contador;
     long Codigo;
     vector<long*>Binario,Original,Ordenado;
     QString Resultado, ConsultaSql, Nombre;

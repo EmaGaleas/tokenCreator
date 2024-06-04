@@ -30,14 +30,15 @@ using std::cout;
 cframe::cframe(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::cframe)
+    , contador(0)  // Inicializamos el contador a 0
 {
-
     ui->setupUi(this);
-   // insertarArchivo();
     llenarListaChars();
-
-
-
+    ui->lbl_contador->setVisible(false);
+    // Configurar el QTimer
+    timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &cframe::actualizarcontador);
+    timer->start(1000);  // Actualiza cada segundo
 }
 
 cframe::~cframe()
@@ -49,6 +50,12 @@ cframe::~cframe()
 //    timer =new QTimer(this);
 //    connect(timer, SIGNAL(timeout()), this, SLOT(funcionActivacionTimer()));
 //    timer->start(20000);
+void cframe::actualizarcontador(){
+    contador = (contador + 1) % 61;
+    int mostrar_segundos = contador % 60;
+    QString timeText = QString("00:%1").arg(mostrar_segundos, 2, 10, QChar('0'));
+    ui->lbl_contador->setText(timeText);
+}
 
 void cframe::on_pushButton_clicked()
 {
@@ -56,9 +63,11 @@ void cframe::on_pushButton_clicked()
     ui->lbl_tit->setPixmap(QPixmap::fromImage(menu));
     ui->pushButton->setVisible(false);
     ui->lbl_tit_3->setVisible(false);
-    timer =new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(on_pushButton_clicked()));
-    timer->start(60000);
+    ui->lbl_contador->setVisible(true);
+
+    timer2 =new QTimer(this);
+    connect(timer2, SIGNAL(timeout()), this, SLOT(on_pushButton_clicked()));
+    timer2->start(60000);
 
     srand(time(NULL));
     Codigo=100000+rand()%(999999+1000000);
@@ -70,6 +79,9 @@ void cframe::on_pushButton_clicked()
     //este es el cifrado de ese token y que procede a guardarse en el archivo
     resultado=cifrar(texto);
     insertarArchivo(resultado);
+    contador = 0;
+    timer->start(1000);
+
    // QMessageBox::information(this,"lalala",""+QString::fromStdString(texto)+"\n"+QString::fromStdString(resultado));
 
 }
