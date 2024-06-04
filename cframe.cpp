@@ -36,6 +36,7 @@ cframe::cframe(QWidget *parent)
     llenarListaChars();
     ui->lbl_contador->setVisible(false);
     // Configurar el QTimer
+    insertarArchivo(resultado);
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &cframe::actualizarcontador);
     timer->start(1000);  // Actualiza cada segundo
@@ -51,6 +52,7 @@ cframe::~cframe()
 //    connect(timer, SIGNAL(timeout()), this, SLOT(funcionActivacionTimer()));
 //    timer->start(20000);
 void cframe::actualizarcontador(){
+    insertarArchivo(resultado);
     contador = (contador + 1) % 61;
     int mostrar_segundos = contador % 60;
     QString timeText = QString("00:%1").arg(mostrar_segundos, 2, 10, QChar('0'));
@@ -79,6 +81,7 @@ void cframe::on_pushButton_clicked()
     //este es el cifrado de ese token y que procede a guardarse en el archivo
     resultado=cifrar(texto);
     insertarArchivo(resultado);
+
     contador = 0;
     timer->start(1000);
 

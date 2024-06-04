@@ -48,7 +48,7 @@ private:
     char Letra;
     int Numero;
     QString firstLine;
-    std::string Ruta ="C:\\Users\\pcast\\OneDrive - Universidad Tecnologica Centroamericana\\q\\Q2 2024\\CRIPTOVERSIDAD\\criptoversidad\\TDA\\ma.txt";
+    std::string Ruta ="C:\\Users\\pcast\\OneDrive - Universidad Tecnologica Centroamericana\\q\\Q2 2024\\CRIPTOVERSIDAD\\criptoversidad\\ma.txt";
 
     void insertarArchivo(string);
 
